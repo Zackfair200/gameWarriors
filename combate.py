@@ -36,11 +36,11 @@ def simulaBatalla(warrior1, warrior2):
     limite = 50
     # Empieza la pelea
     while warrior1.stayAlive() and warrior2.stayAlive():
-        golpeador.golpea(receptor)
+        golpeador.hit(receptor)
         golpeExtra += warrior1.speed
         if golpeExtra >= limite:
             print("Ataque extra!")
-            golpeador.golpea(receptor)
+            golpeador.hit(receptor)
             golpeExtra -= 50
         golpeador, receptor = receptor, golpeador
 

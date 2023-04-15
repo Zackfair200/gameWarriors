@@ -1,7 +1,7 @@
 import os
 
 
-class Arquetipo:
+class BasicArchetype:
     def __init__(self, name, life, strength, precision, speed, defense):
         """Declaro los atributos de clase"""
         self.name = name
