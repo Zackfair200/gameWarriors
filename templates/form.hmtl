@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>{{ form_title }}</title>
+  </head>
+  <body>
+    <h1>{{ form_title }}</h1>
+    <form method="POST">
+      <label for="name">Nombre:</label>
+      <input type="text" name="name" value="{{ warrior.name if warrior else '' }}" required><br>
+      <label for="life">Vida:</label>
+      <input type="number" name="life" value="{{ warrior.life if warrior else '' }}" required><br>
+      <label for="strength">Fuerza:</label>
+      <input type="number" name="strength" value="{{ warrior.strength if warrior else '' }}" required><br>
+      <input type="submit" value="Guardar">
+    </form>
+  </body>
+</html>

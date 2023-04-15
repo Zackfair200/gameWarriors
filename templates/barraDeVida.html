@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Barra de vida</title>
+    <style>
+        .barra {
+            height: 20px;
+            background-color: #ddd;
+            border-radius: 10px;
+            box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
+        }
+
+        .vida {
+            height: 100%;
+            width: {{ vida }}%;
+            border-radius: 10px;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+            transition: width 0.5s ease-in-out;
+        }
+
+        .vida.verde {
+            background-color: #00cc00;
+        }
+
+        .vida.amarillo {
+            background-color: #ffff00;
+        }
+
+        .vida.rojo {
+            background-color: #ff0000;
+        }
+    </style>
+</head>
+<body>
+    <div class="barra">
+        <div class="vida {{ color }}"></div>
+    </div>
+</body>
+</html>
