@@ -83,7 +83,7 @@ while continuar:
     os.system('cls' if os.name == 'nt' else 'clear')
 
     print("🥋 PRIMER PARTICIPANTE 🥊")
-    name1 = input("Ingresa el nombre del primer participante: ")
+    name1 = input("Ingresa el nombre de tu personaje: ")
     life1 = int(input(f"Ingresa la vida de {name1}: "))
     strength1 = int(input(f"Ingresa la fuerza de {name1}: "))
     precision1 = int(input(f"Ingresa la precisión de {name1}: "))
@@ -103,14 +103,14 @@ while continuar:
     elif clase_elegida == 2:
         clase2 = Clase("Mago",15, 5, 8, 4, 2)
     elif clase_elegida == 3:
-        clase2 = Clase("Pícaro",10, 4, 6, 6, 2)
+        clase2 = Clase("Pícaro",10, 4, 6, 6, 3)
     else:
         print("Selección inválida")
 
     os.system('cls' if os.name == 'nt' else 'clear')
 
     print("💪 SEGUNDO PARTICIPANTE 🤸‍♂️")
-    name2 = input(f"Ingresa el nombre del segundo participante: ")
+    name2 = input(f"Ingresa el nombre de tu personaje: ")
     life2 = int(input(f"Ingresa la vida de {name2}: "))
     strength2 = int(input(f"Ingresa la fuerza de {name2}: "))
     precision2 = int(input(f"Ingresa la precisión de {name2}: "))
