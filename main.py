@@ -23,4 +23,4 @@ def barra_de_vida(vida):
     return render_template('barraDeVida.html', vida=vida, color=color)
 
 if __name__ == '__main__':
-    app.run()
+    app.run(debug=True)
