@@ -2,7 +2,8 @@ import random
 import time
 import os
 from playsound import playsound
-from warrior import Warrior
+from clase import Clase
+from character import Character
 
 
 def simulaBatalla(warrior1, warrior2):
@@ -64,8 +65,25 @@ continuar = True
 while continuar:
     os.system('cls' if os.name == 'nt' else 'clear')
 
+    print("Selecciona la clase de tu personaje: ")
+    print("1. Guerrero")
+    print("2. Mago")
+    print("3. Picaro")
+    clase_elegida = int(input("Ingresa el número de la clase elegida: "))
+
+    if clase_elegida == 1:
+        clase1 = Clase("Guerrero",20, 7, 3, 3, 4)
+    elif clase_elegida == 2:
+        clase1 = Clase("Mago",15, 5, 8, 4, 2)
+    elif clase_elegida == 3:
+        clase1 = Clase("Pícaro",10, 4, 6, 6, 2)
+    else:
+        print("Selección inválida")
+
+    os.system('cls' if os.name == 'nt' else 'clear')
+
     print("🥋 PRIMER PARTICIPANTE 🥊")
-    name1 = input("Ingresa el nombre del primer guerrero: ")
+    name1 = input("Ingresa el nombre del primer participante: ")
     life1 = int(input(f"Ingresa la vida de {name1}: "))
     strength1 = int(input(f"Ingresa la fuerza de {name1}: "))
     precision1 = int(input(f"Ingresa la precisión de {name1}: "))
@@ -74,8 +92,25 @@ while continuar:
 
     os.system('cls' if os.name == 'nt' else 'clear')
 
+    print("Selecciona la clase de tu personaje: ")
+    print("1. Guerrero")
+    print("2. Mago")
+    print("3. Picaro")
+    clase_elegida = int(input("Ingresa el número de la clase elegida: "))
+
+    if clase_elegida == 1:
+        clase2 = Clase("Guerrero",20, 7, 3, 3, 4)
+    elif clase_elegida == 2:
+        clase2 = Clase("Mago",15, 5, 8, 4, 2)
+    elif clase_elegida == 3:
+        clase2 = Clase("Pícaro",10, 4, 6, 6, 2)
+    else:
+        print("Selección inválida")
+
+    os.system('cls' if os.name == 'nt' else 'clear')
+
     print("💪 SEGUNDO PARTICIPANTE 🤸‍♂️")
-    name2 = input(f"Ingresa el nombre del segundo guerrero: ")
+    name2 = input(f"Ingresa el nombre del segundo participante: ")
     life2 = int(input(f"Ingresa la vida de {name2}: "))
     strength2 = int(input(f"Ingresa la fuerza de {name2}: "))
     precision2 = int(input(f"Ingresa la precisión de {name2}: "))
@@ -84,10 +119,10 @@ while continuar:
 
     os.system('cls' if os.name == 'nt' else 'clear')
 
-    warrior1 = Warrior(name1, life1, strength1, precision1, speed1, defense1)
-    warrior2 = Warrior(name2, life2, strength2, precision2, speed2, defense2)
+    jugador1 = Character(clase1, name1, life1, strength1, precision1, speed1, defense1)
+    jugador2 = Character(clase2, name2, life2, strength2, precision2, speed2, defense2)
 
-    simulaBatalla(warrior1, warrior2)
+    simulaBatalla(jugador1, jugador2)
 
     respuesta = input("¿Quieres volver a jugar? (S/N)").lower()
     if respuesta == "s":

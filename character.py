@@ -1,19 +1,27 @@
 import os
+import random
+import time
+from playsound import playsound
 
-
-class BasicArchetype:
-    def __init__(self, name, life, strength, precision, speed, defense):
+class Character:
+    def __init__(self, clase, name, life, strength, precision, speed, defense):
         """Declaro los atributos de clase"""
+        self.clase = clase
         self.name = name
-        self.life = 1
-        self.strength = 1
-        self.precision = 1
-        self.speed = 1
-        self.defense = 1 
+        self.life = (1 + life) * self.clase.modLife
+        self.strength = (1 + strength) * self.clase.modStrength
+        self.precision = (1 + precision) * self.clase.modAccurancy
+        self.speed = (1 + speed) * self.clase.modSpeed
+        self.defense = (1 + defense) * self.clase.modDefense
         self.dodge = 1
         self.level = 1
         self.experience = 0
         self.next_level = 50 + (self.level * 10)
+
+        
+
+    def setLife(self,lifePoints):
+        self.life = lifePoints * self.clase.modVida
 
     def stayAlive(self):
         """Retorna True si el jugador está vivo, False de lo contrario"""
@@ -56,3 +64,35 @@ class BasicArchetype:
         print(f"{self.name} ha ganado {puntos_experiencia} puntos de experiencia!")
         if self.experience >= self.next_level:
             self.lvl_up()
+
+    def hit(self, enemy):
+        # comprobar si el ataque impacta
+        if random.randint(1, 100) >= enemy.dodge:
+            print(f"{self.name} ataca.")
+            # Comprobar si el bloqueo está activado y desactivarlo después del siguiente golpe
+            if enemy.clase.shield_on:
+                print(f"{enemy.name} bloquea el ataque.")
+                playsound("sound/woodBlock.mp3")
+                enemy.clase.shield_on = False
+                return
+            critical_hit_chance = min(1, max(0, self.precision / 100)) * 0.5
+            print(f"Probabilidad de crítico: {critical_hit_chance*100}")
+            if random.random() <= critical_hit_chance:
+                damage = max((self.strength + self.dodge) - enemy.defense + random.randrange(-10, 11), 1)
+                enemy.life -= damage
+                print(f"{self.name} realiza un ataque crítico {damage} a {enemy.name} le quedan {enemy.life} puntos de vida 💥")
+                playsound("sound/special.mp3")
+                time.sleep(1)
+            else:
+                damage = max(self.strength - enemy.defense + random.randrange(-10, 11), 1)
+                enemy.life -= damage
+                print(f"{self.name} ha hecho {damage} puntos de daño y a {enemy.name} le quedan {enemy.life} puntos de vida 🤜")
+                playsound("sound/punch.mp3")
+                time.sleep(1)
+            self.clase.shieldLock(enemy)
+        else:
+            print(f"{self.name} ataca.")
+            print(f"{enemy.name} ha esquivado el golpe.")
+            playsound("sound/evade.mp3")
+            time.sleep(1)
+            print("-------------------------------")
