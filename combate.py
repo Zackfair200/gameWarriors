@@ -61,68 +61,88 @@ def simulaBatalla(warrior1, warrior2):
         time.sleep(1)
 
 continuar = True
+personaje1 = None
+personaje2 = None
 
 while continuar:
     os.system('cls' if os.name == 'nt' else 'clear')
 
-    print("Selecciona la clase de tu personaje: ")
-    print("1. Guerrero")
-    print("2. Mago")
-    print("3. Picaro")
-    clase_elegida = int(input("Ingresa el número de la clase elegida: "))
+    for i in range(2):
+        if i == 0:
+            print("🥋 PRIMER PARTICIPANTE 🥊")
+            name1 = input("Ingresa el nombre de tu personaje: ")
+            name = name1
+        else:
+            print("🥋 SEGUNDO PARTICIPANTE 🥊")
+            name2 = input("Ingresa el nombre de tu personaje: ")
+            name = name2
+    
+        print("Selecciona la clase de tu personaje: ")
+        print("1. Guerrero")
+        print("2. Mago")
+        print("3. Picaro")
+        clase_elegida = int(input("Ingresa el número de la clase elegida: "))
 
-    if clase_elegida == 1:
-        clase1 = Clase("Guerrero",20, 7, 3, 3, 4)
-    elif clase_elegida == 2:
-        clase1 = Clase("Mago",15, 5, 8, 4, 2)
-    elif clase_elegida == 3:
-        clase1 = Clase("Pícaro",10, 4, 6, 6, 2)
-    else:
-        print("Selección inválida")
+        if clase_elegida == 1:
+            clase = Clase("Guerrero",20, 7, 3, 3, 4)
+        elif clase_elegida == 2:
+            clase = Clase("Mago",15, 5, 8, 4, 2)
+        elif clase_elegida == 3:
+            clase = Clase("Pícaro",10, 4, 6, 6, 2)
+        else:
+            print("Selección inválida")
 
-    os.system('cls' if os.name == 'nt' else 'clear')
+        os.system('cls' if os.name == 'nt' else 'clear')
 
-    print("🥋 PRIMER PARTICIPANTE 🥊")
-    name1 = input("Ingresa el nombre de tu personaje: ")
-    life1 = int(input(f"Ingresa la vida de {name1}: "))
-    strength1 = int(input(f"Ingresa la fuerza de {name1}: "))
-    precision1 = int(input(f"Ingresa la precisión de {name1}: "))
-    speed1 = int(input(f"Ingresa la velocidad de {name1}: "))
-    defense1 = int(input(f"Ingresa la defensa de {name1}: "))
+        atributos_disponibles = {
+            1: 'vida',
+            2: 'fuerza',
+            3: 'precision',
+            4: 'velocidad',
+            5: 'defensa'
+        }
 
-    os.system('cls' if os.name == 'nt' else 'clear')
+        puntos_disponibles = 15
+        atributos_elegidos = {}
 
-    print("Selecciona la clase de tu personaje: ")
-    print("1. Guerrero")
-    print("2. Mago")
-    print("3. Picaro")
-    clase_elegida = int(input("Ingresa el número de la clase elegida: "))
+        while puntos_disponibles > 0:
+            print(f"-----| {name} |-----")
+            print(f'Tienes {puntos_disponibles} puntos para asignar')
+            print('Atributos disponibles:')
+            for k, v in atributos_disponibles.items():
+                print(f'{k}. {v}')
+            atributo_elegido = int(input('Elige un atributo (introduce el número correspondiente): '))
+            if atributo_elegido not in atributos_disponibles:
+                print('Opción no válida, vuelve a intentarlo')
+                continue
+            puntos_a_asignar = int(input('¿Cuántos puntos quieres asignar a este atributo?: '))
+            if puntos_a_asignar > puntos_disponibles:
+                print(f'Sólo tienes {puntos_disponibles} puntos disponibles')
+                continue
+            os.system('cls' if os.name == 'nt' else 'clear')
+            atributo_actual = atributos_disponibles[atributo_elegido]
+            atributos_elegidos[atributo_actual] = puntos_a_asignar
+            puntos_disponibles -= puntos_a_asignar
 
-    if clase_elegida == 1:
-        clase2 = Clase("Guerrero",20, 7, 3, 3, 4)
-    elif clase_elegida == 2:
-        clase2 = Clase("Mago",15, 5, 8, 4, 2)
-    elif clase_elegida == 3:
-        clase2 = Clase("Pícaro",10, 4, 6, 6, 3)
-    else:
-        print("Selección inválida")
+        print('\nAtributos elegidos:')
+        for k, v in atributos_elegidos.items():
+            print(f'{k.capitalize()}: {v}')
 
-    os.system('cls' if os.name == 'nt' else 'clear')
+        personaje = Character(clase,
+                            name1 if i == 0 else name2,
+                            atributos_elegidos.get('vida', 0),
+                            atributos_elegidos.get('fuerza', 0),
+                            atributos_elegidos.get('precision', 0),
+                            atributos_elegidos.get('velocidad', 0),
+                            atributos_elegidos.get('defensa', 0))
+        if i == 0:
+            personaje1 = personaje
+        else:
+            personaje2 = personaje
 
-    print("💪 SEGUNDO PARTICIPANTE 🤸‍♂️")
-    name2 = input(f"Ingresa el nombre de tu personaje: ")
-    life2 = int(input(f"Ingresa la vida de {name2}: "))
-    strength2 = int(input(f"Ingresa la fuerza de {name2}: "))
-    precision2 = int(input(f"Ingresa la precisión de {name2}: "))
-    speed2 = int(input(f"Ingresa la velocidad de {name2}: "))
-    defense2 = int(input(f"Ingresa la defensa de {name2}: "))
+        print(f'\nResumen de tu personaje:\n{personaje}')
 
-    os.system('cls' if os.name == 'nt' else 'clear')
-
-    jugador1 = Character(clase1, name1, life1, strength1, precision1, speed1, defense1)
-    jugador2 = Character(clase2, name2, life2, strength2, precision2, speed2, defense2)
-
-    simulaBatalla(jugador1, jugador2)
+    simulaBatalla(personaje1, personaje2)
 
     respuesta = input("¿Quieres volver a jugar? (S/N)").lower()
     if respuesta == "s":
