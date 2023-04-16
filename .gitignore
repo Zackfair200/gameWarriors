@@ -2,6 +2,7 @@
 __pycache__/
 *.py[cod]
 ideas.txt
+
 # C extensions
 *.so
 
