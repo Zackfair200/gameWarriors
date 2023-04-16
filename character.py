@@ -77,15 +77,21 @@ class Character:
             self.lvl_up()
 
     def hit(self, enemy):
-        # comprobar si el ataque impacta
-        if random.randint(1, 100) >= enemy.dodge:
+    # comprobar si el ataque impacta
+        hit_success = random.randint(1, 100) >= enemy.dodge
+        if hit_success:
             print(f"{self.name} ataca.")
             # Comprobar si el bloqueo está activado y desactivarlo después del siguiente golpe
-            if enemy.clase.shield_on:
+            if enemy.clase.nombre == "Guerrero" and enemy.clase.shield_on:
                 print(f"{enemy.name} bloquea el ataque.")
                 playsound("sound/woodBlock.mp3")
                 enemy.clase.shield_on = False
-                return
+                return {
+                    "atacante": self,
+                    "defensor": enemy,
+                    "golpe": "Bloqueo",
+                    "resultado": ""
+                }
             critical_hit_chance = min(1, max(0, self.precision / 100)) * 0.5
             print(f"Probabilidad de crítico: {critical_hit_chance*100}")
             if random.random() <= critical_hit_chance:
@@ -94,16 +100,44 @@ class Character:
                 print(f"{self.name} realiza un ataque crítico {damage} a {enemy.name} le quedan {enemy.life} puntos de vida 💥")
                 playsound("sound/special.mp3")
                 time.sleep(1)
+                resultado = "Critico"
             else:
                 damage = max(self.strength - enemy.defense + random.randrange(-10, 11), 1)
                 enemy.life -= damage
                 print(f"{self.name} ha hecho {damage} puntos de daño y a {enemy.name} le quedan {enemy.life} puntos de vida 🤜")
                 playsound("sound/punch.mp3")
                 time.sleep(1)
-            self.clase.shieldLock(enemy)
+                resultado = "Normal"
+            if enemy.clase.nombre == "Guerrero":
+                self.clase.shieldLock(enemy)
         else:
             print(f"{self.name} ataca.")
             print(f"{enemy.name} ha esquivado el golpe.")
             playsound("sound/evade.mp3")
             time.sleep(1)
             print("-------------------------------")
+            resultado = "Esquivado"
+
+        return {
+            "atacante": {
+                "name": self.name,
+                "life": self.life,
+                "strength": self.strength,
+                "precision": self.precision,
+                "velocidad": self.speed,
+                "defense": self.defense
+            },
+            "defensor": {
+                "name": enemy.name,
+                "life": enemy.life,
+                "strength": enemy.strength,
+                "precision": enemy.precision,
+                "velocidad": enemy.speed,
+                "defense": enemy.defense
+            },
+            "golpe": resultado,
+            "resultado": {
+                "vida_atacante": self.life,
+                "vida_defensor": enemy.life
+            }
+        }
