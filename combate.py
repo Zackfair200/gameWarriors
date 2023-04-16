@@ -142,8 +142,17 @@ while continuar:
         else:
             personaje2 = personaje
 
+        resumen_correcto = False
         print(f'\nResumen de tu personaje:\n{personaje}')
-
+        while not resumen_correcto:
+            respuesta = input("¿Estás de acuerdo con el resumen de tu personaje? (S/N): ")
+            if respuesta.lower() == "s":
+                resumen_correcto = True
+            else:
+                print("Respuesta inválida. Inténtalo de nuevo.")
+                continue
+        os.system('cls' if os.name == 'nt' else 'clear')
+        
     simulaBatalla(personaje1, personaje2)
 
     respuesta = input("¿Quieres volver a jugar? (S/N)").lower()
@@ -152,4 +161,4 @@ while continuar:
     else:
         continuar = False
 
-print("¡Gracias por jugar!")
+    print("¡Gracias por jugar!")

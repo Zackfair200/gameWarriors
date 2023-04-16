@@ -18,8 +18,19 @@ class Character:
         self.experience = 0
         self.next_level = 50 + (self.level * 10)
 
-        
+    def __str__(self):
+        """Retorna la información del personaje en formato string"""
+        return (f"Nombre: {self.name}\n"
+                f"Clase: {self.clase.nombre}\n"
+                f"Vida: {self.life}\n"
+                f"Fuerza: {self.strength}\n"
+                f"Precisión: {self.precision}\n"
+                f"Velocidad: {self.speed}\n"
+                f"Defensa: {self.defense}\n"
+                f"Nivel: {self.level}\n"
+                f"Experiencia: {self.experience}/{self.next_level}")
 
+        
     def setLife(self,lifePoints):
         self.life = lifePoints * self.clase.modVida
 
