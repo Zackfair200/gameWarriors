@@ -76,7 +76,9 @@ while continuar:
             print("🥋 SEGUNDO PARTICIPANTE 🥊")
             name2 = input("Ingresa el nombre de tu personaje: ")
             name = name2
-    
+        os.system('cls' if os.name == 'nt' else 'clear')
+
+        print(f"-----| {name} |-----")
         print("Selecciona la clase de tu personaje: ")
         print("1. Guerrero")
         print("2. Mago")
