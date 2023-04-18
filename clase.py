@@ -1,13 +1,13 @@
 
 
 class Clase():
-    def __init__(self, nombre, modLife, modStrength, modAccurancy, modSpeed, modDefense, block=False):
-        self.nombre = nombre
-        self.modLife = modLife
-        self.modStrength = modStrength
-        self.modAccurancy = modAccurancy
-        self.modSpeed = modSpeed
-        self.modDefense = modDefense
+    def __init__(self, name, mod_life, mod_strength, mod_accuracy, mod_speed, mod_defense, block=False):
+        self.nombre = name
+        self.modLife = mod_life
+        self.modStrength = mod_strength
+        self.modAccurancy = mod_accuracy
+        self.modSpeed = mod_speed
+        self.modDefense = mod_defense
         self.hits_received = 0
         self.shield_on = False
         self.block = block

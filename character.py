@@ -2,9 +2,12 @@ import os
 import random
 import time
 from playsound import playsound
+from clase import Clase
+import logging
+
 
 class Character:
-    def __init__(self, clase, name, life, strength, precision, speed, defense):
+    def __init__(self, clase: Clase, name: str, life: int, strength: int, precision: int, speed: int, defense: int) -> None:
         """Declaro los atributos de clase"""
         self.clase = clase
         self.name = name
@@ -19,19 +22,10 @@ class Character:
         self.next_level = 50 + (self.level * 10)
 
     def __str__(self):
-        """Retorna la información del personaje en formato string"""
-        return (f"Nombre: {self.name}\n"
-                f"Clase: {self.clase.nombre}\n"
-                f"Vida: {self.life}\n"
-                f"Fuerza: {self.strength}\n"
-                f"Precisión: {self.precision}\n"
-                f"Velocidad: {self.speed}\n"
-                f"Defensa: {self.defense}\n"
-                f"Nivel: {self.level}\n"
-                f"Experiencia: {self.experience}/{self.next_level}")
+        return f"Nombre: {self.name}\nClase: {self.clase.nombre}\nVida: {self.life}\nFuerza: {self.strength}\nPrecisión: {self.precision}\nVelocidad: {self.speed}\nDefensa: {self.defense}\nNivel: {self.level}\nExperiencia: {self.experience}/{self.next_level}"
 
         
-    def setLife(self,lifePoints):
+    def setLife(self, lifePoints: int) -> None:
         self.life = lifePoints * self.clase.modVida
 
     def stayAlive(self):
@@ -42,35 +36,30 @@ class Character:
         """Aumenta el nivel del jugador y permite asignar puntos a los atributos"""
         self.level += 1
         self.next_level = self.level * 10
-        points_to_assign = 5  # número de puntos para asignar a los atributos
         self.dodge += self.level // 5  # sumar +1 al atributo dodge por cada 5 niveles
-        print(f"Felicidades, has subido al nivel {self.level}! Ahora tienes {points_to_assign} puntos para asignar a tus atributos.")
+        points_to_assign = 5
+        logger = logging.getLogger(__name__)
+        logger.info(f"Felicidades, has subido al nivel {self.level}! Ahora tienes {points_to_assign} puntos para asignar a tus atributos.")
+        attributes = ["Vida", "Fuerza", "Precisión", "Velocidad", "Defensa"]
         while points_to_assign > 0:
-            print(f"Atributos actuales:\n\t1. Vida: {self.life}\n\t2. Fuerza: {self.strength}\n\t3. Precisión: {self.precision}\n\t4. Velocidad: {self.speed}\n\t5. Esquivar: {self.dodge}\n\t6. Defensa: {self.defense}")
-            attribute_choice = input("Elige un atributo para asignar un punto (1-6): ")
-            if attribute_choice == "1":
-                self.life += 5
-                print("Se ha asignado un punto a Vida.")
-            elif attribute_choice == "2":
-                self.strength += 1
-                print("Se ha asignado un punto a Fuerza.")
-            elif attribute_choice == "3":
-                self.precision += 1
-                print("Se ha asignado un punto a Precisión.")
-            elif attribute_choice == "4":
-                self.speed += 1
-                print("Se ha asignado un punto a Velocidad.")
-            elif attribute_choice == "5":
-                self.defense += 1
-                print("Se ha asignado un punto a Defensa.")
-            else:
+            print(f"Atributos actuales:")
+            for i, attribute in enumerate(attributes):
+                print(f"\t{i+1}. {attribute}: {getattr(self, attribute.lower())}")
+            attribute_choice = input("Elige un atributo para asignar un punto (1-5): ")
+            try:
+                attribute_choice = int(attribute_choice)
+                if attribute_choice < 1 or attribute_choice > 5:
+                    raise ValueError
+                attribute_name = attributes[attribute_choice-1].lower()
+                setattr(self, attribute_name, getattr(self, attribute_name) + 1)
+                print(f"Se ha asignado un punto a {attributes[attribute_choice-1]}.")
+                points_to_assign -= 1
+            except ValueError:
                 print("Esa no es una opción válida.")
-                continue
-            points_to_assign -= 1
             os.system('cls' if os.name == 'nt' else 'clear')
             print(f"Te quedan {points_to_assign} puntos por asignar.")
 
-    def ganar_combate(self, puntos_experiencia):
+    def ganar_combate(self, puntos_experiencia: int) -> None:
         self.experience += puntos_experiencia
         print(f"{self.name} ha ganado {puntos_experiencia} puntos de experiencia!")
         if self.experience >= self.next_level:
