@@ -56,7 +56,7 @@ ROOT_URLCONF = 'gameproject.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': ['C:/Users/Kuach/Desktop/Nuevacarpeta/gameproject/templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
