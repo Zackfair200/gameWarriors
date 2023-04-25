@@ -2,11 +2,12 @@ import json
 import random
 import time
 import os
+import logging
 from playsound import playsound
 
 
 class Combate:
-    def __init__(self, atacante, defensor):
+    def __init__(self, atacante: str, defensor: str) -> None:
         self.atacante = atacante
         self.defensor = defensor
         self.hits = []
@@ -73,13 +74,15 @@ class Combate:
         # Muestro el resultado de la pelea
         winner = ""
         if warrior1.life <= 0:
-            print(f"{warrior2.name} ES EL GANADOR!! 🏆")
+            logging.basicConfig(filename='example.log', level=logging.DEBUG)
+            logging.debug(f"{warrior2.name} ES EL GANADOR!! 🏆")
             playsound("sound/you.mp3")
             playsound("sound/win.mp3")
             winner = warrior2.name
             time.sleep(1)
         elif warrior2.life <= 0:
-            print(f"{warrior1.name} ES EL GANADOR!! 🏆")
+            logging.basicConfig(filename='example.log', level=logging.DEBUG)
+            logging.debug(f"{warrior1.name} ES EL GANADOR!! 🏆")
             playsound("sound/you.mp3")
             playsound("sound/win.mp3")
             winner = warrior1.name
