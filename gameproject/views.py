@@ -9,7 +9,6 @@ class Desarrollador:
         self.name = name
         self.surname = surname
 
-
 def dameFecha(request):
     now = datetime.datetime.now()
     html = "<html><body>Hoy es %s de %s de %s .</body></html>" % now.day, now.month, now.year
