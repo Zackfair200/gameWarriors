@@ -1,27 +1,30 @@
 <!DOCTYPE html>
 <html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Titulo de la pagina</title>
-    <link rel="stylesheet" href="../static/css/combat.css">
-</head>
-<body>
-	<div class="container">
-	  <h1>Titulo centrado</h1>
-	  <h3>Siendo desarrollado por: {{nombre_desarrollador}} {{apellido_desarrollador}}</h3>
-	  <h3>Son las {{fecha.hour}}:{{fecha.minute}}</h3>
-	  <div class="divImages">
-		<div class="box">
-		  <img src="../static/images/warrior.jpg" alt="Imagen 1">
-		  <div class="life-bar"></div>
-		</div>
-		<div class="box">
-		  <img src="../static/images/fireMage.jpg" alt="Imagen 2">
-		  <div class="life-bar"></div>
-		</div>
-	  </div>
-	</div>
+    <link rel="stylesheet" href="../../static/css/bootstrap/bootstrap.min.css" />
+    <link rel="stylesheet" href="../static/css/combat.css" />
+  </head>
+  <body>
+    {% include "components/navBar.html" %}
+    <div class="container d-flex flex-column justify-content-center align-items-center" style="height: 100vh;">
+      <h1>Titulo centrado</h1>
+      <h3>Siendo desarrollado por: {{nombre_desarrollador}} {{apellido_desarrollador}}</h3>
+      <h3>Son las {{fecha.hour}}:{{fecha.minute}}</h3>
+      <div class="d-flex justify-content-center">
+        <div class="box">
+          <img src="../static/images/warrior.jpg" alt="Imagen 1" class="img-fluid" />
+          <div class="life-bar green" style="width: 100%;" data-percentage="{{vida_personaje1}}"></div>
+        </div>
+        <div class="box">
+          <img src="../static/images/fireMage.jpg" alt="Imagen 2" class="img-fluid" />
+          <div class="life-bar red" style="width: 40%;" data-percentage="{{vida_personaje2}}"></div>
+        </div>
+      </div>
+    </div>
+    <script src="../../static/js/bootstrap.min.js"></script>
   </body>
 </html>
