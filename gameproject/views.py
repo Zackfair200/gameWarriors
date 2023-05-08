@@ -10,10 +10,8 @@ class Desarrollador:
         self.name = name
         self.surname = surname
 
-def dameFecha(request):
-    now = datetime.datetime.now()
-    html = "<html><body>Hoy es %s de %s de %s .</body></html>" % now.day, now.month, now.year
-    return HttpResponse(html)
+def index(request):
+    return render(request, 'index.html')
 
 def combat(request): 
     # 1º Ejemplo de como cargar templates en las vistas incluyendo como pasar parametros al template.
@@ -37,3 +35,6 @@ def combat(request):
     # 3º Ejemplo para cargar templates (el que vamos a usar en esta view), importando render (from django.shortcuts import render)...
     #... en este ejemplo (como está explicado en el ejemplo 2), ha de estar marcada la ruta donde tenemos los templates en el fichero settings.
     return render(request, 'combat.html', {"nombre_desarrollador":desarrollador.name, "apellido_desarrollador":desarrollador.surname, "fecha":now, })
+
+def contact(request):
+    return render(request, 'contact.html')
